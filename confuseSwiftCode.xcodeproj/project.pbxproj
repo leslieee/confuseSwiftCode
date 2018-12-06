@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		880CAA6921B8B4B4009FDD62 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 880CAA6821B8B4B4009FDD62 /* main.m */; };
+		880CAA7121B8DB50009FDD62 /* ReplaceHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 880CAA7021B8DB50009FDD62 /* ReplaceHandle.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +26,8 @@
 /* Begin PBXFileReference section */
 		880CAA6521B8B4B4009FDD62 /* confuseSwiftCode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = confuseSwiftCode; sourceTree = BUILT_PRODUCTS_DIR; };
 		880CAA6821B8B4B4009FDD62 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		880CAA6F21B8DB50009FDD62 /* ReplaceHandle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceHandle.h; sourceTree = "<group>"; };
+		880CAA7021B8DB50009FDD62 /* ReplaceHandle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceHandle.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +61,8 @@
 			isa = PBXGroup;
 			children = (
 				880CAA6821B8B4B4009FDD62 /* main.m */,
+				880CAA6F21B8DB50009FDD62 /* ReplaceHandle.h */,
+				880CAA7021B8DB50009FDD62 /* ReplaceHandle.m */,
 			);
 			path = confuseSwiftCode;
 			sourceTree = "<group>";
@@ -118,6 +123,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				880CAA7121B8DB50009FDD62 /* ReplaceHandle.m in Sources */,
 				880CAA6921B8B4B4009FDD62 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
