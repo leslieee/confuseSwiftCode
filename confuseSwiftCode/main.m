@@ -37,20 +37,26 @@ int main(int argc, const char * argv[]) {
         }
         NSString *funcNameContent = [NSString stringWithContentsOfFile:funcNamePath encoding:NSUTF8StringEncoding error:nil];
         NSArray *funcNameArray = [funcNameContent componentsSeparatedByString:@"\n"];
+        NSMutableArray *tmpArray = [NSMutableArray array];
+        for (NSString *_str in funcNameArray) {
+            NSString *str = [_str stringByReplacingOccurrencesOfString:@" " withString:@""];
+            if (!SWNOTEmptyStr(str)) {
+                continue;
+            } else if ([str hasPrefix:@"#"] || [str hasPrefix:@"//"]) {
+                // 跳过注释
+                continue;
+            }
+            [tmpArray addObject:str];
+        }
+        funcNameArray = [tmpArray copy];
         NSDictionary *funcNameDict;
         if ([fileManager fileExistsAtPath:funcNameKeyValuePath]) {
             funcNameDict = [[NSDictionary alloc] initWithContentsOfFile:funcNameKeyValuePath];
         }
         if (!SWNOTEmptyDictionary(funcNameDict)) {
             NSMutableDictionary *tmpDict = [NSMutableDictionary dictionary];
-            for (NSString *_str in funcNameArray) {
-                NSString *str = [_str stringByReplacingOccurrencesOfString:@" " withString:@""];
-                if (!SWNOTEmptyStr(str)) {
-                    continue;
-                } else if ([str hasPrefix:@"#"] || [str hasPrefix:@"//"]) {
-                    // 跳过注释
-                    continue;
-                } else if ([str hasSuffix:@"Controller"] || [str hasSuffix:@"VC"]) {
+            for (NSString *str in funcNameArray) {
+                if ([str hasSuffix:@"Controller"] || [str hasSuffix:@"VC"]) {
                     // 生成随机类名
                     NSArray *firstArray = @[@"Gift", @"Process", @"Catchs", @"Question", @"Report",@"Task", @"Sign", @"FindPerson", @"Exchange", @"Card", @"Segment", @"Notis", @"Pindao", @"Root", @"Chat", @"Remark", @"Caogao", @"Weiba", @"Circle", @"MyPublish", @"Activity"];
                     NSArray *secondArray = @[@"", @"", @"Item", @"UserInfo", @"MediaInfo", @"Route", @"Commis", @"Loaction", @"DrawMap"];
