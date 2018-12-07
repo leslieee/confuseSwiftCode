@@ -43,20 +43,45 @@ int main(int argc, const char * argv[]) {
         }
         if (!SWNOTEmptyDictionary(funcNameDict)) {
             NSMutableDictionary *tmpDict = [NSMutableDictionary dictionary];
-            for (NSString *str in funcNameArray) {
-                // 生成随机方法名 与待替换方法名组成key-value
-                NSArray *firstArray = @[@"sen", @"check", @"upload", @"refresh", @"has",@"rest", @"change", @"add", @"remove", @"is"];
-                NSArray *secondArray = @[@"Item", @"UserInfo", @"MediaInfo", @"Route", @"Common", @"Chat", @"Commis"];
-                NSArray *thirdArray = @[@"By", @"Of", @"With", @"And", @"From", @"To", @"In"];
-                NSArray *forthArray = @[@"Home", @"DrawMap", @"MediaID", @"Message", @"Loaction", @"Username", @"My"];
-                NSArray *fifthArray = @[@"Info", @"Count", @"Name", @"SystemId", @"Title", @"Topic", @"Action"];
-                NSString *firstStr = firstArray[arc4random() % firstArray.count];
-                NSString *secondStr = secondArray[arc4random() % secondArray.count];
-                NSString *thirdStr = thirdArray[arc4random() % thirdArray.count];
-                NSString *forthStr = forthArray[arc4random() % forthArray.count];
-                NSString *fifthStr = fifthArray[arc4random() % fifthArray.count];
-                NSString *randomStr = [NSString stringWithFormat:@"%@%@%@%@%@",firstStr,secondStr,thirdStr,forthStr,fifthStr];
-                [tmpDict setValue:randomStr forKey:str];
+            for (NSString *_str in funcNameArray) {
+                NSString *str = [_str stringByReplacingOccurrencesOfString:@" " withString:@""];
+                if (!SWNOTEmptyStr(str)) {
+                    continue;
+                } else if ([str hasPrefix:@"#"] || [str hasPrefix:@"//"]) {
+                    // 跳过注释
+                    continue;
+                } else if ([str hasSuffix:@"Controller"] || [str hasSuffix:@"VC"]) {
+                    // 生成随机类名
+                    NSArray *firstArray = @[@"Gift", @"Process", @"Catchs", @"Question", @"Report",@"Task", @"Sign", @"FindPerson", @"Exchange", @"Card", @"Segment", @"Notis", @"Pindao", @"Root", @"Chat", @"Remark", @"Caogao", @"Weiba", @"Circle", @"MyPublish", @"Activity"];
+                    NSArray *secondArray = @[@"", @"", @"Item", @"UserInfo", @"MediaInfo", @"Route", @"Commis", @"Loaction", @"DrawMap"];
+                    NSArray *thirdArray = @[@"List", @"Detail", @"Manager", @"Comment", @"Common", @"Search", @"Collection", @"Preview", @"Picker", @"Header", @"Setting", @"Info"];
+                    NSArray *forthArray = @[@"View", @"VC", @"Controller"];
+                    NSString *randomStr = [NSString stringWithFormat:@"%@%@%@%@",firstArray[arc4random() % firstArray.count],secondArray[arc4random() % secondArray.count],thirdArray[arc4random() % thirdArray.count],forthArray[arc4random() % forthArray.count]];
+                    NSArray *allkeys = [tmpDict allKeys];
+                    for (NSString *key in allkeys) {
+                        // 如果已经生成了一样的
+                        if ([randomStr isEqualToString:tmpDict[key]]) {
+                            randomStr = [NSString stringWithFormat:@"%@%@",randomStr,thirdArray[arc4random() % thirdArray.count]];
+                        }
+                    }
+                    [tmpDict setValue:randomStr forKey:str];
+                } else {
+                    // 生成随机方法名 与待替换方法名组成key-value
+                    NSArray *firstArray = @[@"sen", @"check", @"upload", @"refresh", @"has",@"rest", @"change", @"add", @"remove", @"is"];
+                    NSArray *secondArray = @[@"Item", @"UserInfo", @"MediaInfo", @"Route", @"Common", @"Chat", @"Commis"];
+                    NSArray *thirdArray = @[@"By", @"Of", @"With", @"And", @"From", @"To", @"In"];
+                    NSArray *forthArray = @[@"Home", @"DrawMap", @"MediaID", @"Message", @"Loaction", @"Username", @"My"];
+                    NSArray *fifthArray = @[@"Info", @"Count", @"Name", @"SystemId", @"Title", @"Topic", @"Action"];
+                    NSString *randomStr = [NSString stringWithFormat:@"%@%@%@%@%@",firstArray[arc4random() % firstArray.count],secondArray[arc4random() % secondArray.count],thirdArray[arc4random() % thirdArray.count],forthArray[arc4random() % forthArray.count],fifthArray[arc4random() % fifthArray.count]];
+                    NSArray *allkeys = [tmpDict allKeys];
+                    for (NSString *key in allkeys) {
+                        // 如果已经生成了一样的
+                        if ([randomStr isEqualToString:tmpDict[key]]) {
+                            randomStr = [NSString stringWithFormat:@"%@%@",randomStr,fifthArray[arc4random() % fifthArray.count]];
+                        }
+                    }
+                    [tmpDict setValue:randomStr forKey:str];
+                }
             }
             funcNameDict = [tmpDict copy];
         }
