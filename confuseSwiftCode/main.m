@@ -16,7 +16,7 @@
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        NSLog(@"程序默认扫描当前目录下Thinksns Plus目录.");
+        printf("%s\n", [[NSString stringWithFormat:@"程序默认扫描当前目录下Thinksns Plus目录."] UTF8String]);
         NSFileManager *fileManager = [NSFileManager defaultManager];
         NSString *homeDirPath;
         if (argc == 1) {
@@ -24,7 +24,7 @@ int main(int argc, const char * argv[]) {
             BOOL isDir;
             BOOL exists = [fileManager fileExistsAtPath:homeDirPath isDirectory:&isDir];
             if (!exists || !isDir) {
-                NSLog(@"请在ts+根目录运行");
+                printf("%s\n", [[NSString stringWithFormat:@"请在ts+根目录运行"] UTF8String]);
                 exit(0);
             }
         }
@@ -32,7 +32,7 @@ int main(int argc, const char * argv[]) {
         NSString *funcNamePath = [NSString stringWithFormat:@"%@/funcname.txt",[fileManager currentDirectoryPath]];
         NSString *funcNameKeyValuePath = [NSString stringWithFormat:@"%@/funcnamekeyvalue",[fileManager currentDirectoryPath]];
         if (![fileManager fileExistsAtPath:funcNamePath]) {
-            NSLog(@"funcname.txt文件不存在, 请先创建文件并导入方法名");
+            printf("%s\n", [[NSString stringWithFormat:@"funcname.txt文件不存在, 请先创建文件并导入方法名"] UTF8String]);
             exit(0);
         }
         NSString *funcNameContent = [NSString stringWithContentsOfFile:funcNamePath encoding:NSUTF8StringEncoding error:nil];
@@ -60,7 +60,8 @@ int main(int argc, const char * argv[]) {
             }
             funcNameDict = [tmpDict copy];
         }
-        NSLog(@"待替换和随机方法名对照表%@",funcNameDict);
+        printf("%s\n", [[NSString stringWithFormat:@"待替换和随机方法名对照表"] UTF8String]);
+        printf("%s\n", [[NSString stringWithFormat:@"%@", funcNameDict] UTF8String]);
         // 保存对照表
         [funcNameDict writeToFile:funcNameKeyValuePath atomically:NO];
         // 遍历目录 挨行替换
@@ -68,7 +69,7 @@ int main(int argc, const char * argv[]) {
         handle.funcNameArray = funcNameArray;
         handle.funcNameDict = funcNameDict;
         [handle replaceWithPath:homeDirPath];
-        NSLog(@"对照表已保存至funcnamekeyvalue文件, 为避免重复生成随机方法名, 请妥善保管文件");
+        printf("%s\n", [[NSString stringWithFormat:@"对照表已保存至funcnamekeyvalue文件, 为避免重复生成随机方法名, 请妥善保管文件"] UTF8String]);
     }
     return 0;
 }

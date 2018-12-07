@@ -39,9 +39,9 @@
                 }
                 if (![newFileContent isEqualToString:fileContent]) {
                     if ([newFileContent writeToFile:fullPath atomically:NO encoding:NSUTF8StringEncoding error:nil]) {
-                        NSLog(@"替换成功: %@",fullPath);
+                        printf("%s\n", [[NSString stringWithFormat:@"替换成功: %@",fullPath] UTF8String]);
                     } else {
-                        NSLog(@"替换失败: %@",fullPath);
+                        printf("%s\n", [[NSString stringWithFormat:@"替换失败: %@",fullPath] UTF8String]);
                     }
                 }
             }
