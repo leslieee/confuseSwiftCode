@@ -28,7 +28,6 @@
 		880CAA6821B8B4B4009FDD62 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		880CAA6F21B8DB50009FDD62 /* ReplaceHandle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceHandle.h; sourceTree = "<group>"; };
 		880CAA7021B8DB50009FDD62 /* ReplaceHandle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceHandle.m; sourceTree = "<group>"; };
-		883AD12621BA4B7D00D72547 /* funcname.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = funcname.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,7 +63,6 @@
 				880CAA6821B8B4B4009FDD62 /* main.m */,
 				880CAA6F21B8DB50009FDD62 /* ReplaceHandle.h */,
 				880CAA7021B8DB50009FDD62 /* ReplaceHandle.m */,
-				883AD12621BA4B7D00D72547 /* funcname.txt */,
 			);
 			path = confuseSwiftCode;
 			sourceTree = "<group>";
