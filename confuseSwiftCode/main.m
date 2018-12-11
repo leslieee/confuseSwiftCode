@@ -6,6 +6,7 @@
 //  Copyright © 2018年 leslie. All rights reserved.
 //
 
+#include <mach-o/dyld.h>
 #import <Foundation/Foundation.h>
 #import "ReplaceHandle.h"
 
@@ -19,8 +20,16 @@ int main(int argc, const char * argv[]) {
         printf("%s\n", [[NSString stringWithFormat:@"程序默认扫描当前目录下Thinksns Plus目录."] UTF8String]);
         NSFileManager *fileManager = [NSFileManager defaultManager];
         NSString *homeDirPath;
+        NSString *execPath;
         if (argc == 1) {
-            homeDirPath = [NSString stringWithFormat:@"%@/Thinksns Plus",[fileManager currentDirectoryPath]];
+            // 获取执行路径
+            char path[512];
+            unsigned size = 512;
+            _NSGetExecutablePath(path, &size);
+            path[size] = '\0';
+            execPath = [NSString stringWithFormat:@"%s",path];
+            execPath = [execPath stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"/%@",[[execPath componentsSeparatedByString:@"/"] lastObject]] withString:@""];
+            homeDirPath = [execPath stringByAppendingString:@"/Thinksns Plus"];
             BOOL isDir;
             BOOL exists = [fileManager fileExistsAtPath:homeDirPath isDirectory:&isDir];
             if (!exists || !isDir) {
@@ -29,8 +38,8 @@ int main(int argc, const char * argv[]) {
             }
         }
         // 获取当前目录的待替换方法名列表
-        NSString *funcNamePath = [NSString stringWithFormat:@"%@/funcname.txt",[fileManager currentDirectoryPath]];
-        NSString *funcNameKeyValuePath = [NSString stringWithFormat:@"%@/funcnamekeyvalue",[fileManager currentDirectoryPath]];
+        NSString *funcNamePath = [NSString stringWithFormat:@"%@/funcname.txt",execPath];
+        NSString *funcNameKeyValuePath = [NSString stringWithFormat:@"%@/funcnamekeyvalue",execPath];
         if (![fileManager fileExistsAtPath:funcNamePath]) {
             printf("%s\n", [[NSString stringWithFormat:@"funcname.txt文件不存在, 请先创建文件并导入方法名"] UTF8String]);
             exit(0);
