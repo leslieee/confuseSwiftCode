@@ -18,7 +18,7 @@
         NSString *className;
         while (1) {
             className = [self generateRandomClassName];
-            if (![tmpClassNameArray containsObject:className]) {
+            if (![tmpClassNameArray containsObject:className] && ![_replaceClassNameArray containsObject:className]) {
                 break;
             }
         }

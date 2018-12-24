@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GenerateClass : NSObject
-
+@property (nonatomic, strong)NSMutableArray *replaceClassNameArray;
 - (void)generateClass:(NSString *)path;
 
 @end

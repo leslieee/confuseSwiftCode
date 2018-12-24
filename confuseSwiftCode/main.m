@@ -60,6 +60,7 @@ int main(int argc, const char * argv[]) {
         }
         funcNameArray = [tmpArray copy];
         NSDictionary *funcNameDict;
+        NSMutableArray *replaceClassNameArray = [NSMutableArray array];
         if ([fileManager fileExistsAtPath:funcNameKeyValuePath]) {
             funcNameDict = [[NSDictionary alloc] initWithContentsOfFile:funcNameKeyValuePath];
         }
@@ -80,6 +81,7 @@ int main(int argc, const char * argv[]) {
                             randomStr = [NSString stringWithFormat:@"%@%@",randomStr,thirdArray[arc4random() % thirdArray.count]];
                         }
                     }
+                    [replaceClassNameArray addObject:randomStr];
                     [tmpDict setValue:randomStr forKey:str];
                 } else {
                     // 生成随机方法名 与待替换方法名组成key-value
@@ -113,6 +115,7 @@ int main(int argc, const char * argv[]) {
         printf("%s\n", [[NSString stringWithFormat:@"---------------------------"] UTF8String]);
         printf("%s\n", [[NSString stringWithFormat:@"对照表已保存至funcnamekeyvalue文件, 为避免重复生成随机方法名, 请妥善保管文件"] UTF8String]);
         GenerateClass *gen = [GenerateClass new];
+        gen.replaceClassNameArray = replaceClassNameArray;
         [gen generateClass:execPath];
         printf("%s\n", [[NSString stringWithFormat:@"生成的类已保存至newproject, 将其拖入项目即可"] UTF8String]);
         printf("%s\n", [[NSString stringWithFormat:@"---------------------------"] UTF8String]);
