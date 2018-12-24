@@ -9,6 +9,7 @@
 #include <mach-o/dyld.h>
 #import <Foundation/Foundation.h>
 #import "ReplaceHandle.h"
+#import "GenerateClass.h"
 
 #define NOTNULL(x) ((![x isKindOfClass:[NSNull class]])&&x)
 #define SWNOTEmptyArr(X) (NOTNULL(X)&&[X isKindOfClass:[NSArray class]]&&[X count])
@@ -109,7 +110,12 @@ int main(int argc, const char * argv[]) {
         handle.funcNameArray = funcNameArray;
         handle.funcNameDict = funcNameDict;
         [handle replaceWithPath:homeDirPath];
+        printf("%s\n", [[NSString stringWithFormat:@"---------------------------"] UTF8String]);
         printf("%s\n", [[NSString stringWithFormat:@"对照表已保存至funcnamekeyvalue文件, 为避免重复生成随机方法名, 请妥善保管文件"] UTF8String]);
+        GenerateClass *gen = [GenerateClass new];
+        [gen generateClass:execPath];
+        printf("%s\n", [[NSString stringWithFormat:@"生成的类已保存至newproject, 将其拖入项目即可"] UTF8String]);
+        printf("%s\n", [[NSString stringWithFormat:@"---------------------------"] UTF8String]);
     }
     return 0;
 }

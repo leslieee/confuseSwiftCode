@@ -65,10 +65,11 @@
                     }
                 }
                 if (![newFileContent isEqualToString:fileContent]) {
+                    NSArray *sepeArray = [fullPath componentsSeparatedByString:@"Thinksns Plus/"];
                     if ([newFileContent writeToFile:fullPath atomically:NO encoding:NSUTF8StringEncoding error:nil]) {
-                        printf("%s\n", [[NSString stringWithFormat:@"替换成功: %@",fullPath] UTF8String]);
+                        printf("%s\n", [[NSString stringWithFormat:@"替换成功: %@",sepeArray[1]] UTF8String]);
                     } else {
-                        printf("%s\n", [[NSString stringWithFormat:@"替换失败: %@",fullPath] UTF8String]);
+                        printf("%s\n", [[NSString stringWithFormat:@"替换失败: %@",sepeArray[1]] UTF8String]);
                     }
                 }
             }
